@@ -1,0 +1,66 @@
+<!-- templates/form_orden_servicio.html-->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario: Orden de Servicio</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body style="background-color: #e3f2fd; font-family: Arial, sans-serif;">
+
+<div class="container mt-5">
+  <h2 class="text-center text-primary mb-4">Formulario: Orden de Servicio</h2>
+
+  <form action="/create_orden_servicio" method="post" class="bg-white p-4 rounded shadow">
+
+    <!-- Campos dinámicos -->
+    {% for campo in [
+      ('contract_number', 'Número de Contrato'),
+      ('contract_date', 'Fecha del Contrato'),
+      ('employer_name', 'Nombre del Contratante'),
+      ('employer_nit', 'NIT del Contratante'),
+      ('legal_representative', 'Representante Legal Contratante'),
+      ('legal_representative_id', 'Cédula Representante Legal'),
+      ('employer_address', 'Dirección del Contratante'),
+      ('contractor_name', 'Nombre del Contratista'),
+      ('contractor_id', 'NIT del Contratista'),
+      ('legal_representative_contractor', 'Representante Legal Contratista'),
+      ('legal_representative_contractor_id', 'Cédula Representante Contratista'),
+      ('contractor_address', 'Dirección del Contratista'),
+      ('contractor_phone', 'Teléfono del Contratista'),
+      ('contractor_email', 'Email del Contratista'),
+      ('contract_object', 'Objeto del Contrato'),
+      ('project_name', 'Nombre del Proyecto'),
+      ('project_city', 'Ciudad del Proyecto'),
+      ('value', 'Valor del Contrato'),
+      ('payment_frequency', 'Frecuencia de Pago'),
+      ('contract_time', 'Duración del Contrato'),
+      ('warranties_cum', 'Póliza de Cumplimiento'),
+      ('warranties_ant', 'Póliza de Anticipo'),
+      ('warranties_amp_sal', 'Póliza Amparo Salarial y Prestaciones'),
+      ('warranties_rce', 'Póliza RCE'),
+      ('warranties_cal', 'Póliza de Calidad'),
+      ('warranties_other', 'Otra Póliza'),
+      ('advance_value', 'Valor del Anticipo'),
+      ('offer', 'Oferta'),
+      ('special_observations', 'Observaciones Especiales')
+    ] %}
+      <div class="mb-3">
+        <label for="{{ campo[0] }}" class="form-label">{{ campo[1] }}</label>
+        <input type="text" class="form-control" id="{{ campo[0] }}" name="{{ campo[0] }}" required>
+      </div>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-primary w-100">Generar Contrato PDF</button>
+  </form>
+
+  <div class="text-center mt-3">
+    <a href="/" class="btn btn-outline-secondary">Volver al inicio</a>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+

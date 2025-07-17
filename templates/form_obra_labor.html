@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario: Contrato de Obra o Labor</title>
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      background-color: #f4f7f6;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    }
+    .card-header {
+      background-color: #0056b3;
+      color: white;
+    }
+    .btn-primary {
+      background-color: #004a99;
+      border-color: #004a99;
+    }
+    .form-label {
+      font-weight: 500;
+    }
+    .form-section-title {
+      color: #0056b3;
+      border-bottom: 2px solid #0056b3;
+      padding-bottom: 5px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container my-5">
+  <div class="card">
+    <div class="card-header text-center">
+      <h2 class="mb-0">Contrato Laboral por Obra o Labor Determinada</h2>
+    </div>
+    <div class="card-body p-4 p-md-5">
+      <!-- La acción del formulario apunta a la ruta definida en app_laboral.py -->
+      <form action="/create/obra-labor" method="post">
+
+        <h4 class="form-section-title">Información del Empleador</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="contract_number" class="form-label">Numero de Contrato:</label>
+            <input type="text" class="form-control" id="contract_number" name="contract_number" requerid>
+          </div>
+          <div class="col-md-6">
+            <label for="contract_date" class="form-label">Fecha del Contrato:</label>
+            <input type="date" class="form-control" id="contract_date" name="contract_date" required>
+          </div>
+          <div class="col-md-6">
+            <label for="employer_name" class="form-label">Nombre o Razón Social del Empleador:</label>
+            <input type="text" class="form-control" id="employer_name" name="employer_name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="employer_nit" class="form-label">NIT del Empleador:</label>
+            <input type="text" class="form-control" id="employer_nit" name="employer_nit" required>
+          </div>
+          <div class="col-md-6">
+            <label for="legal_representative" class="form-label">Representante Legal Nombre:</label>
+            <input type="text" class="form-control" id="legal_representative" name="legal_representative" requerid>
+          </div>
+          <div class="col-md-6">
+            <label for="legal_representative_id" class="form-label">Representante Legal Cedula:</label>
+            <input type="text" class="form-control" id="legal_representative_id" name="legal_representative_id" requerid>
+          </div>
+          <div class="col-md-6">
+            <label for="employer_address" class="form-label">Dirección del Empleador:</label>
+            <input type="text" class="form-control" id="employer_address" name="employer_address" required>
+          </div>
+        </div>
+
+        <h4 class="form-section-title">Información del Trabajador</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="contractor_name" class="form-label">Nombre Completo del Trabajador:</label>
+            <input type="text" class="form-control" id="contractor_name" name="contractor_name" required>
+          </div>
+          <div class="col-md-6">
+            <label for="contractor_id" class="form-label">Cédula de Ciudadanía del Trabajador:</label>
+            <input type="text" class="form-control" id="contractor_id" name="contractor_id" required>
+          </div>
+          <div class="col-md-6">
+            <label for="contractor_address" class="form-label">Dirección de Residencia:</label>
+            <input type="text" class="form-control" id="contractor_address" name="contractor_address" required>
+          </div>
+          <div class="col-md-6">
+            <label for="city_birth" class="form-label">Ciudad de Nacimiento del Trabajador:</label>
+            <input type="text" class="form-control" id="city_birth" name="city_birth" required>
+          </div>
+          <div class="col-md-6">
+            <label for="date_birth" class="form-label">Fecha Nacimiento del Trabajador:</label>
+            <input type="date" class="form-control" id="date_birth" name="date_birth" required>
+          </div>
+           <div class="col-md-6">
+            <label for="contractor_phone" class="form-label">Teléfono de Contacto del Trabajador:</label>
+            <input type="tel" class="form-control" id="contractor_phone" name="contractor_phone" required>
+          </div>
+          <div class="col-md-6">
+            <label for="contractor_email" class="form-label">Correo Electrónico:</label>
+            <input type="email" class="form-control" id="contractor_email" name="contractor_email">
+          </div>
+           <div class="col-md-6">
+            <label for="name_number_emergency" class="form-label">Contacto de Emergencia (Nombre y Teléfono):</label>
+            <input type="text" class="form-control" id="name_number_emergency" name="name_number_emergency" required>
+          </div>
+        </div>
+
+        <h4 class="form-section-title">Condiciones del Contrato</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="workers_position" class="form-label">Cargo a Desempeñar:</label>
+            <input type="text" class="form-control" id="workers_position" name="workers_position" required>
+          </div>
+           <div class="col-md-6">
+            <label for="start_date" class="form-label">Fecha de Inicio de Labores:</label>
+            <input type="date" class="form-control" id="start_date" name="start_date" required>
+          </div>
+          <div class="col-md-6">
+            <label for="activity" class="form-label">Actividad a Realizar:</label>
+            <textarea class="form-control" id="activity" name="activity" rows="3" placeholder="Describa detalladamente la actividad para la cual se contrata al trabajador." required></textarea>
+          </div>
+          <div class="col-md-6">
+            <label for="final_time" class="form-label">Duración de la Obra:</label>
+            <input type="text" class="form-control" id="final_time" name="final_time" required>
+          </div>
+          <div class="col-md-6">
+            <label for="project_name" class="form-label">Nombre del Proyecto o Centro de Costos:</label>
+            <input type="text" class="form-control" id="project_name" name="project_name">
+          </div>
+          <div class="col-md-6">
+            <label for="project_city" class="form-label">Lugar de Ejecución de la Labor:</label>
+            <input type="text" class="form-control" id="project_city" name="project_city" required>
+          </div>
+        </div>
+
+        <h4 class="form-section-title">Condiciones Salariales</h4>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <label for="salary" class="form-label">Salario Mensual (en letras y números):</label>
+            <input type="text" class="form-control" id="salary" name="salary" placeholder="Ej: UN MILLÓN DE PESOS ($1.000.000)" required>
+          </div>
+          <div class="col-md-6">
+            <label for="payment_frequency" class="form-label">Período de Pago:</label>
+            <select class="form-select" id="payment_frequency" name="payment_frequency" required>
+              <option value="Mensual">Mensual</option>
+              <option value="Quincenal">Quincenal</option>
+              <option value="Semanal">Semanal</option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="d-grid gap-2 mt-5">
+          <button type="submit" class="btn btn-primary btn-lg">Generar Contrato PDF</button>
+        </div>
+
+      </form>
+    </div>
+    <div class="card-footer text-center">
+      <a href="/" class="btn btn-outline-secondary">Volver al Inicio</a>
+    </div>
+  </div>
+</div>
+
+<!-- Bootstrap JS Bundle -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>INGETECH - Generador de Contratos Laborales</title>
+
+  <!-- Bootstrap 5 CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  
+  <!-- Estilos personalizados -->
+  <style>
+    body {
+      background-color: #f4f7f6; /* Un fondo gris claro y neutro */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .navbar-brand {
+      font-weight: bold;
+      font-size: 1.5rem;
+    }
+    .hero-section {
+      background: url('https://placehold.co/1200x400/3498db/ffffff?text=Gestión+de+Contratos+Laborales') no-repeat center center;
+      background-size: cover;
+      color: white;
+      padding: 100px 0;
+      text-align: center;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+    }
+    .hero-section h1 {
+      font-size: 3.5rem;
+      font-weight: 700;
+    }
+    .hero-section p {
+      font-size: 1.25rem;
+      margin-bottom: 30px;
+    }
+    .card {
+      border: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    }
+    .card-title {
+      color: #0056b3;
+    }
+    .footer {
+      background-color: #343a40;
+      color: white;
+      padding: 20px 0;
+      text-align: center;
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- BARRA DE NAVEGACIÓN -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="/">INGETECH Laboral</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    
+    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- MENÚ DESPLEGABLE DE CONTRATOS LABORALES -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle active" href="#" id="contratosLaboralesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Crear Contrato Laboral
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="contratosLaboralesDropdown">
+            <li><a class="dropdown-item" href="/contrato-laboral/obra-labor">Contrato de Obra o Labor</a></li>
+            <li><a class="dropdown-item" href="/contrato-laboral/prestacion-servicios">Contrato de Prestación de Servicios</a></li>
+            <li><a class="dropdown-item" href="/contrato-laboral/termino-fijo">Contrato a Término Fijo</a></li>
+            <li><a class="dropdown-item" href="/contrato-laboral/termino-indefinido">Contrato a Término Indefinido</a></li>
+            <li><a class="dropdown-item" href="/contrato-laboral/teletrabajo">Contrato de Teletrabajo</a></li>
+          </ul>
+        </li>
+        <!-- ENLACE A LA LISTA DE CONTRATOS GENERADOS -->
+        <li class="nav-item">
+          <a class="nav-link" href="/lista-contratos-laborales">Ver Contratos Generados</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- SECCIÓN PRINCIPAL (HERO) -->
+
+
+<!-- CONTENIDO DE LA PÁGINA -->
+<div class="container mt-5">
+  <div class="text-center mb-5">
+    <h2>Tipos de Contratos Disponibles</h2>
+    <p class="lead">Nuestra plataforma soporta la generación de los siguientes tipos de contratos laborales, adaptados a la normativa colombiana.</p>
+  </div>
+  <div class="row g-4">
+    <!-- Tarjeta para cada tipo de contrato -->
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Contrato de Obra o Labor</h5>
+          <p class="card-text">Para labores específicas que finalizan con la culminación de una obra determinada.</p>
+          <a href="/contrato-laboral/obra-labor" class="btn btn-outline-primary">Crear ahora</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Prestación de Servicios</h5>
+          <p class="card-text">Para profesionales independientes con autonomía técnica y administrativa.</p>
+          <a href="/contrato-laboral/prestacion-servicios" class="btn btn-outline-primary">Crear ahora</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Contrato a Término Fijo</h5>
+          <p class="card-text">Con una duración definida y posibilidad de prórroga. No puede ser superior a tres años.</p>
+          <a href="/contrato-laboral/termino-fijo" class="btn btn-outline-primary">Crear ahora</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class="card h-100">
+        <div class="card-body text-center">
+          <h5 class="card-title">Contrato a Término Indefinido</h5>
+          <p class="card-text">No tiene una fecha de terminación estipulada, brindando mayor estabilidad.</p>
+          <a href="/contrato-laboral/termino-indefinido" class="btn btn-outline-primary">Crear ahora</a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+          <div class="card-body text-center">
+            <h5 class="card-title">Contrato de Teletrabajo</h5>
+            <p class="card-text">Para empleados que desempeñan sus funciones fuera de las instalaciones de la empresa.</p>
+            <a href="/contrato-laboral/teletrabajo" class="btn btn-outline-primary">Crear ahora</a>
+          </div>
+        </div>
+      </div>
+    <div class="col-md-4">
+      <div class="card h-100 bg-light">
+        <div class="card-body text-center d-flex flex-column justify-content-center">
+          <h5 class="card-title">Ver Todos los Contratos</h5>
+          <p class="card-text">Acceda al registro histórico de todos los contratos laborales generados.</p>
+          <a href="/lista-contratos-laborales" class="btn btn-success">Ver Lista</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PIE DE PÁGINA -->
+<footer class="footer">
+  <div class="container">
+    <p>&copy; 2025 INGEURBANISMO S.A.S. Todos los derechos reservados.</p>
+  </div>
+</footer>
+
+<!-- Bootstrap JS Bundle (incluye Popper) -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>

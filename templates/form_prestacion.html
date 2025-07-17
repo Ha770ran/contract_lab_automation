@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Formulario: Contrato de Prestación de Servicios</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background-color: #e6f7ff; /* Un azul cielo muy claro, diferente al de obra */
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+    .container {
+      max-width: 800px;
+    }
+    .card-header {
+      background-color: #28a745; /* Verde para distinguir de otros contratos */
+      color: white;
+    }
+    .btn-primary {
+      background-color: #218838; /* Un verde más oscuro para el botón */
+      border-color: #1e7e34;
+    }
+    .form-label {
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container mt-5 mb-5">
+  <div class="card shadow-sm">
+    <div class="card-header text-center">
+      <h2 class="mb-0">Formulario: Contrato de Prestación de Servicios</h2>
+    </div>
+    <div class="card-body p-4">
+      <form action="/create_prestacion" method="post">
+
+        {% for campo in [
+          ('contract_number', 'Número de Contrato'),
+          ('signature_date', 'Fecha firma de contrato'),
+          ('employer_name', 'Nombre del Contratante'),
+          ('employer_nit', 'Nit del Contratante'),
+          ('legal_representative', 'Representante legal del Contratante'),
+          ('legal_representative_id', 'Número cédula del contratante (Rep. Legal)'),
+          ('employer_address', 'Dirección del Contratante'),
+          ('employer_email', 'Correo electrónico del Contratante'),
+          ('contractor_name', 'Nombre del Contratista (Profesional)'),
+          ('contractor_id', 'Nit/C.C. del Contratista'),
+          ('legal_representative_contractor', 'Representante legal del contratista (Si aplica)'),
+          ('legal_representative_contractor_id', 'Número de cédula del contratista (Rep. Legal, si aplica)'),
+          ('contractor_address', 'Dirección del Contratista'),
+          ('contractor_phone', 'Teléfono del Contratista'),
+          ('contractor_email', 'Correo electrónico del Contratista'),
+          ('contract_object', 'Objeto del Contrato (Descripción de los servicios profesionales)'),
+          ('project_name', 'Nombre del Proyecto o Contexto del Servicio'),
+          ('project_city', 'Ciudad del proyecto/Lugar de prestación del servicio'),
+          ('value', 'Valor total de los Honorarios (en letras y números)'),
+          ('payment_frequency', 'Forma y Plazos de Pago de Honorarios'),
+          ('advance_value', 'Valor del Anticipo (Si aplica, en letras y números)'),
+          ('contract_time', 'Duración del Contrato (ej: Tres (3) meses)'),
+          ('start_date', 'Fecha de inicio del contrato'),
+          ('warranties_cum', 'Póliza de Cumplimiento (Descripción o "No aplica")'),
+          ('warranties_cal', 'Póliza de Calidad del Servicio (Descripción o "No aplica")'),
+          ('warranties_ant', 'Póliza de Anticipo (Descripción o "No aplica")'),
+          ('offer', 'Oferta o Propuesta de Servicios No. (Referencia)'),
+          ('special_observations', 'Observaciones Especiales o Condiciones Adicionales')
+        ] %}
+          <div class="mb-3">
+            <label for="{{ campo[0] }}" class="form-label">{{ campo[1] }}:</label>
+            {% if campo[0] == 'contract_object' or campo[0] == 'payment_frequency' or campo[0] == 'special_observations' %}
+              <textarea class="form-control" id="{{ campo[0] }}" name="{{ campo[0] }}" rows="3" required></textarea>
+            {% elif campo[0] == 'signature_date' or campo[0] == 'start_date' %}
+              <input type="date" class="form-control" id="{{ campo[0] }}" name="{{ campo[0] }}" required>
+            {% else %}
+              <input type="text" class="form-control" id="{{ campo[0] }}" name="{{ campo[0] }}" required>
+            {% endif %}
+          </div>
+        {% endfor %}
+
+        <div class="d-grid gap-2">
+          <button type="submit" class="btn btn-primary btn-lg">Generar Contrato de Prestación de Servicios PDF</button>
+        </div>
+      </form>
+    </div>
+    <div class="card-footer text-center">
+      <a href="/" class="btn btn-outline-secondary">Volver al Inicio</a>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
