@@ -1,4 +1,4 @@
-# pdf_generators_laboral/termino_fijo_pdf.py
+# pdf_generators_laboral/termino_indefinido_pdf.py
 
 from reportlab.lib.pagesizes import letter
 from reportlab.pdfgen import canvas
@@ -9,9 +9,9 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY, TA_CENTER, TA_LEFT
 import os
 
-def generar_pdf_termino_fijo(datos):
+def generar_pdf_termino_indefinido(datos):
     """
-    Genera un archivo PDF para un Contrato Individual de Trabajo a Término Fijo.
+    Genera un archivo PDF para un Contrato Individual de Trabajo a Término Indefinido.
 
     Args:
         datos (dict): Un diccionario con los datos del formulario.
@@ -25,7 +25,7 @@ def generar_pdf_termino_fijo(datos):
 
         nombre_trabajador = datos.get('contractor_name', 'trabajador').replace(' ', '_')
         numero_contrato = datos.get('contract_number', 'SNC')
-        nombre_archivo = f"Contrato_Termino_Fijo_{numero_contrato}_{nombre_trabajador}.pdf"
+        nombre_archivo = f"Contrato_Termino_Indefinido_{numero_contrato}_{nombre_trabajador}.pdf"
         filepath = os.path.join(output_dir, nombre_archivo)
 
         c = canvas.Canvas(filepath, pagesize=letter)
@@ -51,11 +51,11 @@ def generar_pdf_termino_fijo(datos):
             return height - inch
 
         # --- 3. PÁGINA 1: TÍTULO Y TABLA DE VARIABLES ---
-        p_title = Paragraph("CONTRATO INDIVIDUAL DE TRABAJO A TÉRMINO FIJO", style_title)
+        p_title = Paragraph("CONTRATO INDIVIDUAL DE TRABAJO A TÉRMINO INDEFINIDO", style_title)
         p_title.wrapOn(c, width - 2 * inch, height)
         p_title.drawOn(c, inch, height - inch * 1.2)
 
-        # Usamos las mismas variables que en el contrato de Obra o Labor para consistencia
+        # Se mantienen las 23 variables para consistencia con los otros formularios
         data_for_table = [
             [Paragraph("<b>Número de Contrato:</b>", cell_style_label), Paragraph(datos.get('contract_number', ''), cell_style_value)],
             [Paragraph("<b>Fecha del Contrato:</b>", cell_style_label), Paragraph(datos.get('contract_date', ''), cell_style_value)],
@@ -74,9 +74,9 @@ def generar_pdf_termino_fijo(datos):
             [Paragraph("<b>Contacto de Emergencia:</b>", cell_style_label), Paragraph(datos.get('name_number_emergency', ''), cell_style_value)],
             [Paragraph("<b>Cargo del Trabajador:</b>", cell_style_label), Paragraph(datos.get('workers_position', ''), cell_style_value)],
             [Paragraph("<b>Actividad a Realizar:</b>", cell_style_label), Paragraph(datos.get('activity', ''), cell_style_value)],
-            [Paragraph("<b>Duración del Contrato:</b>", cell_style_label), Paragraph(datos.get('final_time', ''), cell_style_value)],
+            [Paragraph("<b>Duración del Contrato:</b>", cell_style_label), Paragraph("INDEFINIDO", cell_style_value)], # Valor fijo para este contrato
             [Paragraph("<b>Fecha de Inicio:</b>", cell_style_label), Paragraph(datos.get('start_date', ''), cell_style_value)],
-             [Paragraph("<b>Nombre del Proyecto o Centro de Costos:</b>", cell_style_label), Paragraph(datos.get('project_name', ''), cell_style_value)],
+            [Paragraph("<b>Nombre del Proyecto o Centro de Costos:</b>", cell_style_label), Paragraph(datos.get('project_name', ''), cell_style_value)],
             [Paragraph("<b>Lugar de Ejecución:</b>", cell_style_label), Paragraph(datos.get('project_city', ''), cell_style_value)],
             [Paragraph("<b>Salario Mensual:</b>", cell_style_label), Paragraph(datos.get('salary', ''), cell_style_value)],
             [Paragraph("<b>Frecuencia de Pago:</b>", cell_style_label), Paragraph(datos.get('payment_frequency', ''), cell_style_value)],
@@ -96,7 +96,7 @@ def generar_pdf_termino_fijo(datos):
         table_height = table._height
         table.drawOn(c, inch, height - inch * 1.5 - table_height)
         
-        y_position = height - inch * 2 - table_height -40
+        y_position = height - inch * 2 - table_height - 40
 
         intro_text = "Las partes identificadas plenamente en el presente contrato laboral deciden de mutuo acuerdo, libre y voluntariamente, pactar y cumplir las siguientes condiciones contractuales, de acuerdo con la normatividad laboral colombiana."
         p_intro = Paragraph(intro_text, style_body)
@@ -116,12 +116,12 @@ def generar_pdf_termino_fijo(datos):
             p.drawOn(c, inch, y_position - p_height)
             y_position -= (p_height + 10)
 
-        draw_paragraph(f"Entre el <b>EMPLEADOR</b> ({datos.get('employer_name','')}) y el <b>TRABAJADOR</b> ({datos.get('contractor_name','')}), de las condiciones mencionadas en el cuadro general al inicio del contrato, las partes identificadas como aparecen al pie de sus firmas, se ha celebrado el presente contrato a término fijo de trabajo, regido además por las siguientes cláusulas:", style_body)
+        draw_paragraph(f"Entre el <b>EMPLEADOR</b> ({datos.get('employer_name','')}) y el <b>TRABAJADOR</b> ({datos.get('contractor_name','')}), de las condiciones mencionadas en el cuadro general al inicio del contrato, las partes identificadas como aparecen al pie de sus firmas, se ha celebrado el presente contrato individual de trabajo a término indefinido, regido además por las siguientes cláusulas:", style_body)
         
         clausulas = [
             ("PRIMERA: OBJETO.", "El TRABAJADOR se compromete a colocar al servicio del empleador toda su capacidad normal de trabajo, en forma exclusiva y personal, en el desempeño de las funciones que se le asignen, y especialmente las relacionadas con el cargo y en las labores anexas y complementarias del mismo, de conformidad con las leyes, los reglamentos, las órdenes y las instrucciones generales o particulares que se le impartan, observando en su desempeño la buena fe, el cuidado y diligencia necesarios."),
-            ("SEGUNDA: DURACIÓN DEL CONTRATO.", f"El presente contrato se celebra por el tiempo de duración mencionado en el cuadro general del presente contrato ({datos.get('final_time', '')}), y de acuerdo con la normatividad laboral colombiana.<br/><br/><b>PARÁGRAFO PRIMERO:</b> Si antes de la fecha de vencimiento de la duración del contrato, el EMPLEADOR no avisa al TRABAJADOR por escrito su determinación de no prorrogar el contrato, con antelación no inferior a treinta (30) días, éste se entenderá prorrogado por un período igual al inicialmente pactado, según lo establecido por el artículo 46 del Código Sustantivo del Trabajo y demás normas concordantes.<br/><br/><b>PARÁGRAFO SEGUNDO:</b> Si el término de duración inicial del presente contrato es inferior a un año únicamente podrá prorrogarse sucesivamente hasta por tres (3) períodos iguales o inferiores al término de duración inicial del contrato, al cabo de los cuales, el término de renovación no podrá ser inferior a un año y así sucesivamente."),
-            ("TERCERA: PERÍODO DE PRUEBA.", "El presente contrato queda sujeto a un período de prueba equivalente a la quinta parte de duración del presente contrato, sin que sea superior a dos (2) meses contados a partir de la fecha de la iniciación de la relación laboral, plazo durante el cual cualquiera de las partes podrá darlo por terminado unilateralmente sin previo aviso y sin lugar al pago de indemnización."),
+            ("SEGUNDA: DURACIÓN DEL CONTRATO.", "El presente contrato de trabajo es a término indefinido, pero podrá darse por terminado por cualquiera de las partes, cumpliendo con las exigencias y formalidades que la ley laboral colombiana ha establecido para el efecto."),
+            ("TERCERA: PERÍODO DE PRUEBA.", "El presente contrato queda sujeto a un período de prueba de dos (2) meses contados a partir de la fecha de la iniciación de la relación laboral, plazo durante el cual cualquiera de las partes podrá darlo por terminado unilateralmente sin previo aviso y sin lugar al pago de indemnización."),
             ("CUARTA: LUGAR DE PRESTACIÓN DEL SERVICIO.", f"El servicio antedicho lo prestará EL TRABAJADOR en el lugar determinado en el cuadro general del presente contrato ({datos.get('project_city', '')}). En todo caso, EL EMPLEADOR queda facultado para trasladar a EL TRABAJADOR a otras ciudades u oficios y asignarle otras funciones, siempre y cuando tales cambios y traslados no impliquen desmejora de las condiciones laborales de EL TRABAJADOR. Los gastos que se originen con el traslado serán cubiertos por EL EMPLEADOR."),
             ("QUINTA: JORNADA DE TRABAJO.", "EL TRABAJADOR laborará durante las horas diarias que como jornada ordinaria le señale EL EMPLEADOR de acuerdo con el Reglamento Interno de Trabajo, sin exceder las horas semanales establecidas en la Ley 2101 de 2021 que este aplicando el EMPLEADOR. La labor en tiempo suplementario, siempre que le haya sido previamente autorizado por LA EMPRESA, le será cubierta a la tarifa legal definida por la ley colombiana."),
             ("SEXTA: SALARIO.", f"El salario determinado en el cuadro general al inicio del presente contrato ({datos.get('salary', '')}) fue acordado voluntaria y conscientemente por las partes, y cumple con todas las condiciones laborales, incluyendo todas las prestaciones sociales que por ley se estipulen.<br/><br/><b>PARÁGRAFO PRIMERO: SEGURIDAD SOCIAL.</b> - EL EMPLEADOR pagará la parte que le corresponda de las cotizaciones al sistema de seguridad social en pensiones, salud y riesgos profesionales, igualmente podrá descontar a EL EMPLEADO la parte de las cotizaciones que por ley a él le corresponde sufragar."),
@@ -183,11 +183,11 @@ def generar_pdf_termino_fijo(datos):
         c.drawRightString(width - inch, 0.5 * inch, copyright_text) # 0.5 inch desde el borde inferior
         
         c.save()
-        print(f"✅ PDF de Contrato a Término Fijo generado exitosamente en: {filepath}")
+        print(f"✅ PDF de Contrato a Término Indefinido generado exitosamente en: {filepath}")
 
     except Exception as e:
         print(f"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
-        print(f"Error al generar el PDF de Término Fijo: {e}")
+        print(f"Error al generar el PDF de Término Indefinido: {e}")
         import traceback
         print(traceback.format_exc())
         print(f"!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
@@ -195,28 +195,29 @@ def generar_pdf_termino_fijo(datos):
 # Ejemplo de uso:
 if __name__ == '__main__':
     datos_ejemplo = {
-        'contract_number': 'TF-2025-023',
-        'contract_date': '2025-07-09',
+        'contract_number': 'CI-2025-088',
+        'contract_date': '2025-09-15',
         'employer_name': 'INGEURBANISMO SAS',
         'employer_nit': '900474198-8',
         'legal_representative': 'ELIANA MARIA ARBELAEZ ALZATE',
         'legal_representative_id': '1.038.407.657',
         'employer_address': 'Km 4, Vía Llanogrande - Don Diego, Rionegro',
-        'contractor_name': 'María Ximena Buitrago',
-        'contractor_id': '55.555.555',
-        'city_birth': 'Medellín',
-        'date_birth': '1997-10-05',
-        'contractor_address': 'Pinar de Canada, Rionegro',
-        'contractor_phone': '3005559999',
-        'contractor_email': 'prueba20@gmail.com',
-        'name_number_emergency': 'Alberto Pineda - 3007775544',
-        'workers_position': 'Supervisora de Seguridad y Salud en el Trabajo',
-        'activity': 'Actividades de vigilancia, seguimiento y gestión SST.',
-        'final_time': 'Tres (3) meses',
-        'project_name': 'Proyecto SENDAI',
+        'contractor_name': 'Carlos Ramirez',
+        'contractor_id': '71.777.888',
+        'city_birth': 'Bogotá',
+        'date_birth': '1985-02-10',
+        'contractor_address': 'Carrera 15 # 80-20, Bogotá',
+        'contractor_phone': '3118887766',
+        'contractor_email': 'carlos.ramirez@example.com',
+        'name_number_emergency': 'Lucia Fernandez - 3125554433',
+        'workers_position': 'Director Administrativo',
+        'activity': 'Coordinación general de las áreas administrativas y financieras de la compañía.',
+        'project_name': 'Administración Central',
         'project_city': 'Rionegro, Antioquia',
-        'salary': 'DOS MILLONES QUINIENTOS MIL PESOS M/CTE ($2.500.000)',
+        'salary': 'SEIS MILLONES DE PESOS M/CTE ($6.000.000)',
         'payment_frequency': 'Mensual',
-        'start_date': '2025-07-21',
+        'start_date': '2025-10-01',
+        # La variable 'final_time' no es necesaria aquí ya que la duración es indefinida.
+        # Se omite del diccionario de ejemplo para este tipo de contrato.
     }
-    generar_pdf_termino_fijo(datos_ejemplo)
+    generar_pdf_termino_indefinido(datos_ejemplo)

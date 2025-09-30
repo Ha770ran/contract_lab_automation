@@ -7,6 +7,10 @@ if not exist venv (
     python -m venv venv
 )
 
+REM Establece las variables de entorno para Gmail
+set GMAIL_SENDER_EMAIL=contratacionempresarial.ing@gmail.com
+set GMAIL_APP_PASSWORD=krtpmqkycryswnof
+
 REM Activa el entorno virtual
 call .\venv\Scripts\activate
 

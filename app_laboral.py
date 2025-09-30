@@ -10,8 +10,9 @@ import os
 from pdf_generators_lab.obra_labor_pdf import generar_pdf_obra_labor
 #from pdf_generators_lab.prestacion_servicios_pdf import generar_pdf_prestacion_servicios_laboral
 from pdf_generators_lab.termino_fijo_pdf import generar_pdf_termino_fijo
-#from pdf_generators_lab.termino_indefinido_pdf import generar_pdf_termino_indefinido
+from pdf_generators_lab.termino_indefinido_pdf import generar_pdf_termino_indefinido
 #from pdf_generators_lab.teletrabajo_pdf import generar_pdf_teletrabajo
+from email_sender import send_contract_email
 
 app = Flask(__name__)
 
@@ -36,8 +37,8 @@ def form_termino_fijo():
     """Muestra el formulario para el Contrato a Término Fijo."""
     return render_template("form_termino_fijo.html")
 
-#@app.route("/contrato-laboral/termino-indefinido")
-#def form_termino_indefinido():
+@app.route("/contrato-laboral/termino-indefinido")
+def form_termino_indefinido():
     """Muestra el formulario para el Contrato a Término Indefinido."""
     return render_template("form_termino_indefinido.html")
 
@@ -87,6 +88,10 @@ def procesar_y_guardar_contrato(datos, tipo_contrato, funcion_pdf):
     df_final.to_excel(excel_file, index=False)
     print(f"Contrato '{tipo_contrato}' guardado en {excel_file}")
 
+    # Enviar correo electrónico
+    recipients = ["gtecnica@ingeurbanismo.com", "gestionhumana@ingeurbanismo.com"]
+    send_contract_email(datos, recipients)
+
 @app.route("/create/obra-labor", methods=["POST"])
 def create_obra_labor():
     datos = request.form.to_dict()
@@ -108,11 +113,11 @@ def create_termino_fijo():
     procesar_y_guardar_contrato(datos, "Término Fijo", generar_pdf_termino_fijo)
     return redirect("/")
 
-#@app.route("/create/termino-indefinido", methods=["POST"])
-#def create_termino_indefinido():
+@app.route("/create/termino-indefinido", methods=["POST"])
+def create_termino_indefinido():
     datos = request.form.to_dict()
     # Cambia 'generar_pdf_temporal' por 'generar_pdf_termino_indefinido'
-    procesar_y_guardar_contrato(datos, "Término Indefinido", generar_pdf_temporal)
+    procesar_y_guardar_contrato(datos, "Término Indefinido", generar_pdf_termino_indefinido)
     return redirect("/")
 
 #@app.route("/create/teletrabajo", methods=["POST"])

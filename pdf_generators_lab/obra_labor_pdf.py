@@ -218,6 +218,13 @@ def generar_pdf_obra_labor(datos):
         # --- 7. GUARDAR EL PDF ---
         c.setFont("Helvetica", 9)
         c.drawString(inch, 0.75 * inch, f"Página {page_number}")
+
+          # Añadir la frase de copyright en la esquina inferior derecha de la última página
+        copyright_text = "© 2015 HEBITECH. All rights reserved."
+        c.setFont("Helvetica", 8) # Arial 8 solicitado, usando Helvetica como alternativa estándar
+        c.drawRightString(width - inch, 0.5 * inch, copyright_text) # 0.5 inch desde el borde inferior
+        
+
         c.save()
         print(f"✅ PDF de Contrato de Obra o Labor generado exitosamente en: {filepath}")
 

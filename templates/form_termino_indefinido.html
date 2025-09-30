@@ -3,10 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Formulario: Contrato de Obra o Labor</title>
-  <!-- Bootstrap 5 CDN -->
+  <title>Formulario: Contrato a Término Indefinido</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Estilos personalizados -->
   <style>
     body {
       background-color: #f4f7f6;
@@ -41,17 +39,16 @@
 <div class="container my-5">
   <div class="card">
     <div class="card-header text-center">
-      <h2 class="mb-0">Contrato Laboral por Obra o Labor Determinada</h2>
+      <h2 class="mb-0">Contrato Laboral a Término Indefinido</h2>
     </div>
     <div class="card-body p-4 p-md-5">
-      <!-- La acción del formulario apunta a la ruta definida en app_laboral.py -->
-      <form action="/create/obra-labor" method="post">
+      <form action="/create/termino-indefinido" method="post">
 
         <h4 class="form-section-title">Información del Empleador</h4>
         <div class="row g-3">
           <div class="col-md-6">
             <label for="contract_number" class="form-label">Numero de Contrato:</label>
-            <input type="text" class="form-control" id="contract_number" name="contract_number" requerid>
+            <input type="text" class="form-control" id="contract_number" name="contract_number" required>
           </div>
           <div class="col-md-6">
             <label for="contract_date" class="form-label">Fecha del Contrato:</label>
@@ -67,11 +64,11 @@
           </div>
           <div class="col-md-6">
             <label for="legal_representative" class="form-label">Representante Legal Nombre:</label>
-            <input type="text" class="form-control" id="legal_representative" name="legal_representative" requerid>
+            <input type="text" class="form-control" id="legal_representative" name="legal_representative" required>
           </div>
           <div class="col-md-6">
             <label for="legal_representative_id" class="form-label">Representante Legal Cedula:</label>
-            <input type="text" class="form-control" id="legal_representative_id" name="legal_representative_id" requerid>
+            <input type="text" class="form-control" id="legal_representative_id" name="legal_representative_id" required>
           </div>
           <div class="col-md-6">
             <label for="employer_address" class="form-label">Dirección del Empleador:</label>
@@ -125,17 +122,9 @@
             <label for="start_date" class="form-label">Fecha de Inicio de Labores:</label>
             <input type="date" class="form-control" id="start_date" name="start_date" required>
           </div>
-          <div class="col-md-6">
-            <label for="estimated_end_date" class="form-label">Fecha Final Estimada:</label>
-            <input type="date" class="form-control" id="estimated_end_date" name="estimated_end_date">
-          </div>
-          <div class="col-md-6">
-            <label for="activity" class="form-label">Actividad a Realizar:</label>
-            <textarea class="form-control" id="activity" name="activity" rows="3" placeholder="Describa detalladamente la actividad para la cual se contrata al trabajador." required></textarea>
-          </div>
-          <div class="col-md-6">
-            <label for="final_time" class="form-label">Duración de la Obra:</label>
-            <input type="text" class="form-control" id="final_time" name="final_time" required>
+          <div class="col-md-12">
+            <label for="activity" class="form-label">Actividad o Funciones a Realizar:</label>
+            <textarea class="form-control" id="activity" name="activity" rows="3" placeholder="Describa detalladamente las funciones principales para las cuales se contrata al trabajador." required></textarea>
           </div>
           <div class="col-md-6">
             <label for="project_name" class="form-label">Nombre del Proyecto o Centro de Costos:</label>
@@ -175,7 +164,6 @@
   </div>
 </div>
 
-<!-- Bootstrap JS Bundle -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
